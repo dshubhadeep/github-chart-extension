@@ -8,5 +8,12 @@
       "matches": ["https://*.github.com/*"],
       "js": ["content.js"]
     }
-  ]
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": ["storage"],
+  "browser_action": {
+    "default_popup": "popup.html"
+  }
 }
