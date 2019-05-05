@@ -16,18 +16,29 @@ const BLUE_GRAPH = {
   "#196127": "#17459e"
 };
 
-const graph = document.querySelector(".js-calendar-graph-svg > g");
+const updateGraph = _ => {
+  const graph = document.querySelector(".js-calendar-graph-svg > g");
 
-if (graph !== null) {
-  const columns = [...graph.children].filter(child => child.nodeName === "g");
+  if (graph !== null) {
+    const legend = document.querySelectorAll(".legend li");
+    const columns = [...graph.children].filter(child => child.nodeName === "g");
 
-  columns.forEach(column => {
-    const days = [...column.children];
+    columns.forEach(column => {
+      const days = [...column.children];
 
-    days.forEach(day => {
-      const newColor = HALLOWEEN_GRAPH[day.getAttribute("fill")];
+      days.forEach(day => {
+        const newColor = HALLOWEEN_GRAPH[day.getAttribute("fill")];
 
-      day.setAttribute("fill", newColor);
+        day.setAttribute("fill", newColor);
+      });
     });
-  });
-}
+
+    const colors = Object.values(HALLOWEEN_GRAPH);
+
+    legend.forEach((li, idx) => {
+      li.style.backgroundColor = colors[idx];
+    });
+  }
+};
+
+updateGraph();
