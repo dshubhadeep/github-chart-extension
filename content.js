@@ -42,3 +42,7 @@ const updateGraph = chosen => {
  * Initial load
  */
 updateGraph(HALLOWEEN_GRAPH);
+
+chrome.runtime.onMessage.addListener((message, req, res) => {
+  console.log("Github Ext:", message);
+});
