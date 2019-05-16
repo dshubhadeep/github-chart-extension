@@ -1,9 +1,8 @@
 console.log("Background script running");
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status === "complete") {
-    const message = { status: "complete" };
-    chrome.tabs.sendMessage(tabId, message);
-    console.log("Sent message");
-  }
-});
+chrome.webRequest.onCompleted.addListener(
+  ({ tabId }) => {
+    chrome.tabs.sendMessage(tabId, { message: "XHR Complete" });
+  },
+  { urls: ["https://github.com/users/*"], types: ["xmlhttprequest"] }
+);

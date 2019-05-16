@@ -59,6 +59,11 @@ chrome.storage.local.get("theme", results => {
 
 chrome.runtime.onMessage.addListener((message, req, res) => {
   console.log("Github Ext:", message);
+  if (message.message == "XHR Complete") {
+    chrome.storage.local.get("theme", results => {
+      updateGraph("default", results["theme"]);
+    });
+  }
 });
 
 /**
