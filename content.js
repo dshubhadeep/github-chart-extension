@@ -20,24 +20,29 @@ const getAllDaysRect = columns => {
 const updateGraph = (previous, current) => {
   const graph = document.querySelector(".js-calendar-graph-svg > g");
 
-  const oldTheme = themes[previous];
-  const newTheme = themes[current];
-
   if (graph !== null) {
-    const legend = document.querySelectorAll(".legend li");
-    const columns = [...graph.children].filter(child => child.nodeName === "g");
+    chrome.storage.local.get("themes", result => {
+      const saved_themes = JSON.parse(result["themes"]);
+      const oldTheme = saved_themes[previous];
+      const newTheme = saved_themes[current];
 
-    const days = getAllDaysRect(columns);
+      const legend = document.querySelectorAll(".legend li");
+      const columns = [...graph.children].filter(
+        child => child.nodeName === "g"
+      );
 
-    days.forEach(day => {
-      const idx = oldTheme.indexOf(day.getAttribute("fill"));
-      const newColor = newTheme[idx];
+      const days = getAllDaysRect(columns);
 
-      day.setAttribute("fill", newColor);
-    });
+      days.forEach(day => {
+        const idx = oldTheme.indexOf(day.getAttribute("fill"));
+        const newColor = newTheme[idx];
 
-    legend.forEach((li, idx) => {
-      li.style.backgroundColor = newTheme[idx];
+        day.setAttribute("fill", newColor);
+      });
+
+      legend.forEach((li, idx) => {
+        li.style.backgroundColor = newTheme[idx];
+      });
     });
   }
 };
@@ -51,9 +56,12 @@ chrome.storage.local.get("theme", results => {
     updateGraph("default", newTheme);
   } else {
     // For first time users, theme is set to default
-    chrome.storage.local.set({ theme: "default" }, _ => {
-      console.log("Theme set in storage");
-    });
+    chrome.storage.local.set(
+      { theme: "default", themes: JSON.stringify(themes) },
+      _ => {
+        console.log("Theme set in storage");
+      }
+    );
   }
 });
 

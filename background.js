@@ -1,9 +1,8 @@
 console.log("Background script running");
 
 chrome.webRequest.onCompleted.addListener(
-  details => {
-    console.log(details);
-    chrome.tabs.sendMessage(details.tabId, { message: "XHR Complete" });
+  ({ tabId }) => {
+    chrome.tabs.sendMessage(tabId, { message: "XHR Complete" });
   },
   {
     urls: [
