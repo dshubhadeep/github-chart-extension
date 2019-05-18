@@ -20,11 +20,12 @@
         height: 400px;
         font-family: "Work Sans", monospace;
         background: #203541;
+        overflow-y: hidden;
       }
 
       #header {
         color: #f1f3f5;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
       }
 
       h3 {
@@ -61,47 +62,102 @@
         background-color: #374955;
         border: 1.5px solid white;
       }
+
+      .hidden {
+        display: none;
+      }
+
+      .field-wrapper {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        margin: 5px;
+        font-size: 16px;
+      }
+
+      .field-wrapper label {
+        margin-bottom: 5px;
+        color: white;
+      }
     </style>
   </head>
   <body>
     <h1 style="text-align:center;" id="header">Github extension</h1>
 
-    <!-- DEFAULT THEME -->
-    <div class="theme-wrapper default">
-      <h3>Default</h3>
-      <div class="theme-palette">
-        <div class="color" style="background-color: #ebedf0;"></div>
-        <div class="color" style="background-color: #c6e48b;"></div>
-        <div class="color" style="background-color: #7bc96f;"></div>
-        <div class="color" style="background-color: #239a3b;"></div>
-        <div class="color" style="background-color: #196127;"></div>
+    <div class="palette-wrapper">
+      <!-- DEFAULT THEME -->
+      <div class="theme-wrapper default">
+        <h3>Default</h3>
+        <div class="theme-palette">
+          <div class="color" style="background-color: #ebedf0;"></div>
+          <div class="color" style="background-color: #c6e48b;"></div>
+          <div class="color" style="background-color: #7bc96f;"></div>
+          <div class="color" style="background-color: #239a3b;"></div>
+          <div class="color" style="background-color: #196127;"></div>
+        </div>
+      </div>
+
+      <!-- BLUE THEME -->
+      <div class="theme-wrapper blue">
+        <h3>Blue</h3>
+        <div class="theme-palette">
+          <div class="color" style="background-color: #ebedf0;"></div>
+          <div class="color" style="background-color: #c0ddf9;"></div>
+          <div class="color" style="background-color: #73b3f3;"></div>
+          <div class="color" style="background-color: #3886e1;"></div>
+          <div class="color" style="background-color: #17459e;"></div>
+        </div>
+      </div>
+
+      <!-- HALLOWEEN THEME -->
+      <div class="theme-wrapper halloween">
+        <h3>Halloween</h3>
+        <div class="theme-palette">
+          <div class="color" style="background-color: #ebedf0;"></div>
+          <div class="color" style="background-color: #fdf436;"></div>
+          <div class="color" style="background-color: #ffc700;"></div>
+          <div class="color" style="background-color: #ff9100;"></div>
+          <div class="color" style="background-color: #06001c;"></div>
+        </div>
       </div>
     </div>
 
-    <!-- BLUE THEME -->
-    <div class="theme-wrapper blue">
-      <h3>Blue</h3>
-      <div class="theme-palette">
-        <div class="color" style="background-color: #ebedf0;"></div>
-        <div class="color" style="background-color: #c0ddf9;"></div>
-        <div class="color" style="background-color: #73b3f3;"></div>
-        <div class="color" style="background-color: #3886e1;"></div>
-        <div class="color" style="background-color: #17459e;"></div>
+    <div class="theme-form hidden">
+      <!-- THEME_NAME -->
+      <div class="field-wrapper">
+        <label for="theme_name">Theme name</label>
+        <input type="text" placeholder="Default" id="theme_name" />
+      </div>
+      <!-- COLOR 1 -->
+      <div class="field-wrapper">
+        <label for="color_1">Color 1</label>
+        <input type="text" placeholder="#ebedf0" id="color_1" />
+      </div>
+      <!-- COLOR 2 -->
+      <div class="field-wrapper">
+        <label for="color_2">Color 2</label>
+        <input type="text" placeholder="#c6e48b" id="color_2" />
+      </div>
+      <!-- COLOR 3 -->
+      <div class="field-wrapper">
+        <label for="color_3">Color 3</label>
+        <input type="text" placeholder="#7bc96f" id="color_3" />
+      </div>
+      <!-- COLOR 4 -->
+      <div class="field-wrapper">
+        <label for="color_4">Color 4</label>
+        <input type="text" placeholder="#239a3b" id="color_4" />
+      </div>
+      <!-- COLOR 5 -->
+      <div class="field-wrapper">
+        <label for="color_5">Color 5</label>
+        <input type="text" placeholder="#196127" id="color_5" />
+      </div>
+      <div style="text-align: center;">
+        <button id="add_theme_button">Add theme</button>
       </div>
     </div>
 
-    <!-- HALLOWEEN THEME -->
-    <div class="theme-wrapper halloween">
-      <h3>Halloween</h3>
-      <div class="theme-palette">
-        <div class="color" style="background-color: #ebedf0;"></div>
-        <div class="color" style="background-color: #fdf436;"></div>
-        <div class="color" style="background-color: #ffc700;"></div>
-        <div class="color" style="background-color: #ff9100;"></div>
-        <div class="color" style="background-color: #06001c;"></div>
-      </div>
-    </div>
-    
     <script src="./popup.js"></script>
   </body>
 </html>

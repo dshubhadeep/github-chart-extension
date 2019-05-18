@@ -22,7 +22,7 @@ const updateGraph = (previous, current) => {
 
   if (graph !== null) {
     chrome.storage.local.get("themes", result => {
-      const saved_themes = JSON.parse(result["themes"]);
+      const saved_themes = result["themes"];
       const oldTheme = saved_themes[previous];
       const newTheme = saved_themes[current];
 
@@ -56,12 +56,9 @@ chrome.storage.local.get("theme", results => {
     updateGraph("default", newTheme);
   } else {
     // For first time users, theme is set to default
-    chrome.storage.local.set(
-      { theme: "default", themes: JSON.stringify(themes) },
-      _ => {
-        console.log("Theme set in storage");
-      }
-    );
+    chrome.storage.local.set({ theme: "default", themes }, _ => {
+      console.log("Theme set in storage");
+    });
   }
 });
 
@@ -79,6 +76,8 @@ chrome.runtime.onMessage.addListener((message, req, res) => {
  * Observes local storage
  */
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-  const { oldValue, newValue } = changes["theme"];
-  if (oldValue) updateGraph(oldValue, newValue);
+  if (changes["theme"]) {
+    const { oldValue, newValue } = changes["theme"];
+    if (oldValue) updateGraph(oldValue, newValue);
+  }
 });
