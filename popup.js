@@ -2,7 +2,6 @@ console.log("Popup");
 
 document.addEventListener("DOMContentLoaded", () => {
   const paletteWrapper = document.querySelector(".palette-wrapper");
-  const themeWrappers = document.querySelectorAll(".theme-wrapper");
   const addThemeButton = document.getElementById("add_theme_button");
   const themeForm = document.querySelector(".theme-form");
 
@@ -12,28 +11,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let savedTheme;
 
-  chrome.storage.local.get("theme", result => {
-    console.log(`Saved theme : ${result.theme}`);
-    savedTheme = result.theme;
+  /**
+   * Render all themes at start
+   */
+  chrome.storage.local.get("themes", results => {
+    const themesMap = JSON.parse(results["themes"]);
+    const themes = Object.keys(themesMap);
 
-    // Add selected class to theme-wrapper
-    updateWrappers(savedTheme);
-  });
+    themes.forEach(theme => {
+      console.log(`Rendered ${theme}`);
+      renderList(theme, themesMap[theme]);
+    });
 
-  themeWrappers.forEach(themeWrapper => {
-    themeWrapper.addEventListener("click", _ => {
-      const theme = themeWrapper.className.split(" ")[1];
+    const themeWrappers = document.querySelectorAll(".theme-wrapper");
 
-      updateWrappers(theme);
+    chrome.storage.local.get("theme", result => {
+      console.log(`Saved theme : ${result.theme}`);
+      savedTheme = result.theme;
 
-      // Add theme to localStorage
-      chrome.storage.local.set({ theme }, () => {
-        console.log(`Saved theme : ${theme}`);
+      // Add selected class to theme-wrapper
+      updateWrappers(savedTheme, themeWrappers);
+    });
+
+    themeWrappers.forEach(themeWrapper => {
+      themeWrapper.addEventListener("click", _ => {
+        const theme = themeWrapper.className.split(" ")[1];
+
+        updateWrappers(theme, themeWrappers);
+
+        // Add theme to localStorage
+        chrome.storage.local.set({ theme }, () => {
+          console.log(`Saved theme : ${theme}`);
+        });
       });
     });
   });
 
-  const updateWrappers = theme => {
+  /**
+   * Add class to selected theme
+   * @param {string} theme
+   * @param {NodeList} themeWrappers
+   */
+  const updateWrappers = (theme, themeWrappers) => {
     themeWrappers.forEach(themeWrapper => {
       if (themeWrapper.classList.contains(theme)) {
         themeWrapper.classList.add("selected");
@@ -43,19 +62,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  /**
+   * Add theme-wrapper to list
+   * @param {string} themeName
+   * @param {Array[]} colors
+   */
   const renderList = (themeName, colors) => {
-    const rendered_html = `<div class="theme-wrapper ${themeName}">
-    <h3>${themeName}</h3>
-    <div class="theme-palette">
-      <div class="color" style="background-color: ${colors[0]};"></div>
-      <div class="color" style="background-color: ${colors[1]};"></div>
-      <div class="color" style="background-color: ${colors[2]};"></div>
-      <div class="color" style="background-color: ${colors[3]};"></div>
-      <div class="color" style="background-color: ${colors[4]};"></div>
-    </div>
-  </div>`;
-
-    console.log(rendered_html);
+    const rendered_html = `
+    <div class="theme-wrapper ${themeName}">
+      <h3>${themeName}</h3>
+      <div class="theme-palette">
+        <div class="color" style="background-color: ${colors[0]};"></div>
+        <div class="color" style="background-color: ${colors[1]};"></div>
+        <div class="color" style="background-color: ${colors[2]};"></div>
+        <div class="color" style="background-color: ${colors[3]};"></div>
+        <div class="color" style="background-color: ${colors[4]};"></div>
+      </div>
+    </div>`;
 
     paletteWrapper.innerHTML += rendered_html;
   };
