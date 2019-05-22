@@ -15,36 +15,38 @@ document.addEventListener("DOMContentLoaded", () => {
    * Render all themes at start
    */
   chrome.storage.local.get("themes", results => {
-    const themesMap = JSON.parse(results["themes"]);
-    const themes = Object.keys(themesMap);
+    if (results["themes"]) {
+      const themesMap = JSON.parse(results["themes"]);
+      const themes = Object.keys(themesMap);
 
-    themes.forEach(theme => {
-      console.log(`Rendered ${theme}`);
-      renderList(theme, themesMap[theme]);
-    });
+      themes.forEach(theme => {
+        console.log(`Rendered ${theme}`);
+        renderList(theme, themesMap[theme]);
+      });
 
-    const themeWrappers = document.querySelectorAll(".theme-wrapper");
+      const themeWrappers = document.querySelectorAll(".theme-wrapper");
 
-    chrome.storage.local.get("theme", result => {
-      console.log(`Saved theme : ${result.theme}`);
-      savedTheme = result.theme;
+      chrome.storage.local.get("theme", result => {
+        console.log(`Saved theme : ${result.theme}`);
+        savedTheme = result.theme;
 
-      // Add selected class to theme-wrapper
-      updateWrappers(savedTheme, themeWrappers);
-    });
+        // Add selected class to theme-wrapper
+        updateWrappers(savedTheme, themeWrappers);
+      });
 
-    themeWrappers.forEach(themeWrapper => {
-      themeWrapper.addEventListener("click", _ => {
-        const theme = themeWrapper.className.split(" ")[1];
+      themeWrappers.forEach(themeWrapper => {
+        themeWrapper.addEventListener("click", _ => {
+          const theme = themeWrapper.className.split(" ")[1];
 
-        updateWrappers(theme, themeWrappers);
+          updateWrappers(theme, themeWrappers);
 
-        // Add theme to localStorage
-        chrome.storage.local.set({ theme }, () => {
-          console.log(`Saved theme : ${theme}`);
+          // Add theme to localStorage
+          chrome.storage.local.set({ theme }, () => {
+            console.log(`Saved theme : ${theme}`);
+          });
         });
       });
-    });
+    }
   });
 
   /**
@@ -88,8 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
       input.value.toLowerCase()
     );
 
-    const themeName = inputs[0];
-    const colors = inputs.slice(1);
+    const [themeName, ...colors] = inputs;
 
     // TODO Form validation
     const hexRegex = /^#([a-f0-9]{6})$/g;
