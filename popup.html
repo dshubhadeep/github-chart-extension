@@ -17,7 +17,7 @@
         padding: 0;
         margin: 0;
         width: 300px;
-        height: 400px;
+        height: 420px;
         font-family: "Work Sans", monospace;
         background: #203541;
         overflow-y: hidden;
@@ -79,12 +79,32 @@
         margin-bottom: 5px;
         color: white;
       }
+
+      #show_form_btn {
+        outline: none;
+        padding: 10px;
+        margin-bottom: 5px;
+        font-family: "Work Sans", monospace;
+        font-weight: bold;
+        background: transparent;
+        border: 1px solid rgb(240, 238, 238);
+        color: white;
+        border-radius: 4px;
+      }
+
+      #show_form_btn:hover {
+        background: white;
+        color: #203541;
+      }
     </style>
   </head>
   <body>
     <h1 style="text-align:center;" id="header">Github extension</h1>
 
     <div class="palette-wrapper">
+      <div style="text-align: center;">
+        <button id="show_form_btn">Add theme</button>
+      </div>
     </div>
 
     <div class="theme-form hidden">

@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const paletteWrapper = document.querySelector(".palette-wrapper");
   const addThemeButton = document.getElementById("add_theme_button");
   const themeForm = document.querySelector(".theme-form");
+  const showFormButton = document.querySelector("#show_form_btn");
 
   /**
    * Initial load
@@ -110,5 +111,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  const switcher = _ => {
+    paletteWrapper.classList.toggle("hidden");
+    themeForm.classList.toggle("hidden");
+  };
+
   addThemeButton.addEventListener("click", addTheme);
+  // TODO Bug fix
+  showFormButton.addEventListener("click", switcher);
 });
