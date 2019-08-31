@@ -2,6 +2,13 @@ console.log("Github extension running");
 
 // TODO Allow users to add custom themes
 const themes = {
+  teal: ["#ebedf0", "#7FFFD4", "#76EEC6", "#66CDAA", "#458B74"],
+  leftPad: ["#2F2F2F", "#646464", "#A5A5A5", "#DDDDDD", "#F6F6F6"],
+  dracula: ["#282a36", "#44475a", "#6272a4", "#bd93f9", "#ff79c6"],
+  panda: ["#242526", "#34353B", "#6FC1FF", "#19f9d8", "#FF4B82"],
+  sunny: ["#fff9ae", "#f8ed62", "#e9d700", "#dab600", "#a98600"],
+  pink: ["#ebedf0", "#e48bdc", "#ca5bcc", "#a74aa8", "#61185f"],
+  YlGnBu: ["#ebedf0", "#a1dab4", "#41b6c4", "#2c7fb8", "#253494"],
   default: ["#ebedf0", "#c6e48b", "#7bc96f", "#239a3b", "#196127"],
   blue: ["#ebedf0", "#c0ddf9", "#73b3f3", "#3886e1", "#17459e"],
   halloween: ["#ebedf0", "#fdf436", "#ffc700", "#ff9100", "#06001c"]
