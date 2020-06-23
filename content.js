@@ -43,12 +43,14 @@ const updateGraph = (previous, current) => {
                 const oldFill = day.getAttribute("fill");
                 let newColor = zipped[oldFill];
 
-                if (newColor)
+                if (newColor) {
                     day.setAttribute("fill", newColor);
+                    day.style.setProperty('fill', newColor);
+                }
             });
 
             legend.forEach((li, idx) => {
-                li.style.backgroundColor = newTheme[idx];
+                li.style.setProperty('background-color', newTheme[idx], 'important');
             });
         });
     }
