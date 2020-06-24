@@ -3,16 +3,28 @@
   "name": "Github Chart Extension",
   "version": "1.0.0",
   "author": "Shubhadeep Das",
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "content_scripts": [
     {
-      "matches": ["https://*.github.com/*"],
-      "js": ["content.js"]
+      "matches": [
+        "https://*.github.com/*"
+      ],
+      "js": [
+        "content.js"
+      ]
     }
   ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "background.js"
+    ]
   },
-  "permissions": ["storage", "tabs", "webRequest", "<all_urls>"],
+  "permissions": [
+    "storage",
+    "tabs",
+    "webRequest",
+    "<all_urls>"
+  ],
   "browser_action": {
     "default_popup": "popup.html"
   }
