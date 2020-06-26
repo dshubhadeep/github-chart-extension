@@ -9,7 +9,7 @@ const themes = {
     sunny: ["#fff9ae", "#f8ed62", "#e9d700", "#dab600", "#a98600"],
     pink: ["#ebedf0", "#e48bdc", "#ca5bcc", "#a74aa8", "#61185f"],
     YlGnBu: ["#ebedf0", "#a1dab4", "#41b6c4", "#2c7fb8", "#253494"],
-    default: ["#ebedf0", "#c6e48b", "#7bc96f", "#239a3b", "#196127"],
+    default: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
     blue: ["#ebedf0", "#c0ddf9", "#73b3f3", "#3886e1", "#17459e"],
     halloween: ["#ebedf0", "#fdf436", "#ffc700", "#ff9100", "#06001c"],
     coolBlues: ["#DBC2CF", "#9FA2B2", "#3C7A89", "#2E4756", "#16262E"]
