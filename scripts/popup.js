@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     created: function () {
-      chrome.storage.local.get("themes", ({ themes }) => {
+      chrome.storage.local.get(["themes", "theme"], ({ themes, theme }) => {
         if (themes) {
           themes = JSON.parse(themes);
           this.themeList = convertMapToList(themes);
@@ -107,18 +107,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
           console.log(`Theme list size : ${this.themeList.length}, total pages : ${this.totalPages}`);
 
-          // Fetch saved theme
-          chrome.storage.local.get("theme", ({ theme }) => {
-            this.savedTheme = theme;
-            const savedIndex = this.themeList.map(e => e.name).indexOf(theme);
-            this.currentPage = Math.floor(savedIndex / this.itemPerPage) + 1;
-            this.slicedList = this.themeList.slice(
-              this.itemPerPage * (this.currentPage - 1),
-              this.itemPerPage * this.currentPage
-            );
+          this.savedTheme = theme;
+          const savedIndex = this.themeList.map(e => e.name).indexOf(theme);
+          this.currentPage = Math.floor(savedIndex / this.itemPerPage) + 1;
+          this.slicedList = this.themeList.slice(
+            this.itemPerPage * (this.currentPage - 1),
+            this.itemPerPage * this.currentPage
+          );
 
-            console.log(`Saved theme : ${theme}, index : ${savedIndex}, page no : ${Math.floor(savedIndex / this.itemPerPage) + 1}`);
-          });
+          console.log(`Saved theme : ${theme}, index : ${savedIndex}, page no : ${Math.floor(savedIndex / this.itemPerPage) + 1}`);
         }
       });
     },
