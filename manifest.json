@@ -9,8 +9,13 @@
       "matches": [
         "https://*.github.com/*"
       ],
+      "css": [
+        "iso.css"
+      ],
       "js": [
-        "content.js"
+        "content.js",
+        "obelisk.min.js",
+        "iso.js"
       ]
     }
   ],
